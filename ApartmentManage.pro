@@ -1,6 +1,7 @@
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 5): QT += core5compat
 
 CONFIG += c++17
 
@@ -9,17 +10,23 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    apartment.cpp \
+    apartment1.cpp \
+    codeconvert.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
     userui.cpp
 
 HEADERS += \
+    apartment.h \
+    apartment1.h \
     login.h \
     mainwindow.h \
     userui.h
 
 FORMS += \
+    apartment1.ui \
     login.ui \
     mainwindow.ui \
     userui.ui

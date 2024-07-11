@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>apartment1</class>
+ <widget class="QMainWindow" name="apartment1">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>547</width>
+    <height>348</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>学生信息管理系统</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>551</width>
+      <height>321</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>公寓信息</string>
+     </attribute>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>511</width>
+        <height>251</height>
+       </rect>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::SingleSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <attribute name="horizontalHeaderMinimumSectionSize">
+       <number>25</number>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>240</number>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>租金</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>公寓</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>547</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>公寓管理</string>
+    </property>
+    <addaction name="apar_read"/>
+    <addaction name="apar_save"/>
+    <addaction name="separator"/>
+    <addaction name="apar_del"/>
+    <addaction name="apar_add"/>
+    <addaction name="apar_chg"/>
+    <addaction name="separator"/>
+   </widget>
+   <addaction name="menu_2"/>
+  </widget>
+  <action name="apar_read">
+   <property name="text">
+    <string>读取文件</string>
+   </property>
+   <property name="toolTip">
+    <string>读取文件</string>
+   </property>
+   <property name="shortcut">
+    <string>O</string>
+   </property>
+  </action>
+  <action name="apar_save">
+   <property name="text">
+    <string>保存为</string>
+   </property>
+   <property name="toolTip">
+    <string>保存到文件中</string>
+   </property>
+   <property name="shortcut">
+    <string>S</string>
+   </property>
+  </action>
+  <action name="apar_del">
+   <property name="text">
+    <string>删除信息</string>
+   </property>
+   <property name="toolTip">
+    <string>手动删除学生信息</string>
+   </property>
+   <property name="shortcut">
+    <string>D</string>
+   </property>
+  </action>
+  <action name="apar_add">
+   <property name="text">
+    <string>添加信息</string>
+   </property>
+   <property name="toolTip">
+    <string>手动添加学生信息</string>
+   </property>
+   <property name="shortcut">
+    <string>A</string>
+   </property>
+  </action>
+  <action name="class_read">
+   <property name="text">
+    <string>读取文件</string>
+   </property>
+   <property name="toolTip">
+    <string>读取文件</string>
+   </property>
+   <property name="shortcut">
+    <string>O</string>
+   </property>
+  </action>
+  <action name="class_save">
+   <property name="text">
+    <string>保存为</string>
+   </property>
+   <property name="toolTip">
+    <string>保存到文件中</string>
+   </property>
+   <property name="shortcut">
+    <string>S</string>
+   </property>
+  </action>
+  <action name="class_del">
+   <property name="text">
+    <string>删除课程</string>
+   </property>
+   <property name="toolTip">
+    <string>手动删除课程信息</string>
+   </property>
+   <property name="shortcut">
+    <string>D</string>
+   </property>
+  </action>
+  <action name="class_add">
+   <property name="text">
+    <string>添加课程</string>
+   </property>
+   <property name="toolTip">
+    <string>手动添加课程信息</string>
+   </property>
+   <property name="shortcut">
+    <string>A</string>
+   </property>
+  </action>
+  <action name="apar_chg">
+   <property name="text">
+    <string>修改信息</string>
+   </property>
+   <property name="toolTip">
+    <string>修改学生信息</string>
+   </property>
+   <property name="shortcut">
+    <string>M</string>
+   </property>
+  </action>
+  <action name="choose_class">
+   <property name="text">
+    <string>选择课程</string>
+   </property>
+   <property name="shortcut">
+    <string>C</string>
+   </property>
+  </action>
+  <action name="delete_class">
+   <property name="text">
+    <string>退选课程</string>
+   </property>
+   <property name="shortcut">
+    <string>D</string>
+   </property>
+  </action>
+  <action name="search_stu">
+   <property name="text">
+    <string>查询单个学生</string>
+   </property>
+   <property name="shortcut">
+    <string>B</string>
+   </property>
+  </action>
+  <action name="search_class">
+   <property name="text">
+    <string>查询单个课程</string>
+   </property>
+   <property name="shortcut">
+    <string>A</string>
+   </property>
+  </action>
+  <action name="choose_read">
+   <property name="text">
+    <string>读取文件</string>
+   </property>
+   <property name="shortcut">
+    <string>O</string>
+   </property>
+  </action>
+  <action name="choose_save">
+   <property name="text">
+    <string>保存为</string>
+   </property>
+   <property name="shortcut">
+    <string>S</string>
+   </property>
+  </action>
+  <action name="add_grade">
+   <property name="text">
+    <string>添加成绩</string>
+   </property>
+  </action>
+  <action name="del_grade">
+   <property name="text">
+    <string>删除成绩</string>
+   </property>
+  </action>
+  <action name="caculate">
+   <property name="text">
+    <string>计算学分绩</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
+
