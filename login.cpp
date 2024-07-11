@@ -1,5 +1,6 @@
 #include "login.h"
 #include "mainwindow.h"
+#include "userui.h"
 #include "ui_login.h"
 
 Login::Login(QWidget *parent)
@@ -62,8 +63,15 @@ void Login::on_loginbtn_clicked()
             QStringList fields = line.split(" ");
             if(fields[0] == user1 && fields[1] == pw){
                 found = true;
-                MainWindow *a = new MainWindow;
-                a->show();
+                if(filename == "hostAccount.txt")
+                {
+                    MainWindow *a = new MainWindow;
+                    a->show();
+                }else
+                {
+                    userui *a = new userui;
+                    a->show();
+                }
                 this->close();
                 break;
             }
