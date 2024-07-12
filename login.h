@@ -33,16 +33,17 @@ class Login : public QMainWindow
 public:
     explicit Login(QWidget *parent = nullptr);
     ~Login();
+signals:
+    void loginSuccess(bool isAdmin);
 
 private slots:
-    void on_UserChoseAction_triggered();
-
     void on_signupbtn_clicked();
-
     void on_loginbtn_clicked();
+
 
 private:
     Ui::Login *ui;
+    bool checkCredentials(const QString &account, const QString &password);
 };
 
 #endif // LOGIN_H

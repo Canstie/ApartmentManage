@@ -13,6 +13,8 @@ SOURCES += \
     apartment.cpp \
     apartment1.cpp \
     codeconvert.cpp \
+    information.cpp \
+    leasemanagement.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -21,12 +23,16 @@ SOURCES += \
 HEADERS += \
     apartment.h \
     apartment1.h \
+    information.h \
+    leasemanagement.h \
     login.h \
     mainwindow.h \
     userui.h
 
 FORMS += \
     apartment1.ui \
+    information.ui \
+    leasemanagement.ui \
     login.ui \
     mainwindow.ui \
     userui.ui

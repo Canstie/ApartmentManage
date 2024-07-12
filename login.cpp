@@ -15,26 +15,11 @@ Login::~Login()
     delete ui;
 }
 
-void Login::on_UserChoseAction_triggered()
-{
-    if(ui->UserChoseAction->isChecked()==true)
-    {
-        ui->UserChoseAction->setText("房主登录");
-        ui->UserChoseAction->setToolTip("房主登录");
-        ui->UserChoseAction->setStatusTip("房主登录");
-    }else{
-        ui->UserChoseAction->setText("用户登录");
-        ui->UserChoseAction->setToolTip("用户登录");
-        ui->UserChoseAction->setStatusTip("用户登录");
-    }
-}
-
-
 void Login::on_signupbtn_clicked()
 {
     QString user1 = ui->userEdit->text();
     QString pw = ui->pwEdit->text();
-    bool ishost = ui->UserChoseAction->isChecked();
+    bool ishost = ui->rbtn2->isChecked();
     User newuser(user1,pw,ishost);
     QString filename = ishost ? "hostAccount.txt":"userAccount.txt";
     QFile file(filename);
@@ -44,44 +29,35 @@ void Login::on_signupbtn_clicked()
         file.close();
         QMessageBox::information(this,"注册成功","注册成功");
     }else{
-        QMessageBox::warning(this,"警告","注册失败");
+        QMessageBox::warning(this,"警告","文件打不开");
     }
 }
 
 
 void Login::on_loginbtn_clicked()
 {
-    QString user1 = ui->userEdit->text();
-    QString pw = ui->pwEdit->text();
-    QString filename = ui->UserChoseAction->isChecked() ? "hostAccount.txt" : "userAccount.txt";
-    QFile file(filename);
-    if(file.open(QIODevice::ReadOnly|QIODevice::Text)){
-        QTextStream in(&file);
-        bool found = false;
-        while(!in.atEnd()){
-            QString line = in.readLine().trimmed();
-            QStringList fields = line.split(" ");
-            if(fields[0] == user1 && fields[1] == pw){
-                found = true;
-                if(filename == "hostAccount.txt")
-                {
-                    MainWindow *a = new MainWindow;
-                    a->show();
-                }else
-                {
-                    userui *a = new userui;
-                    a->show();
-                }
-                this->close();
-                break;
-            }
-        }
-        file.close();
-        if(!found){
-            QMessageBox::warning(this,"登陆失败","用户名或密码错误");
-        }
-    }else{
-        QMessageBox::critical(this,"错误","无法打开账户文件");
+    QString account = ui->userEdit->text();
+    QString password = ui->pwEdit->text();
+    if (checkCredentials(account, password)) {
+        emit loginSuccess(ui->rbtn2->isChecked());  // 简单区分管理员和普通用户
+    } else {
+        QMessageBox::warning(this,"警告","账户或密码错误");
     }
+}
+
+bool Login::checkCredentials(const QString &account, const QString &password) {
+    QFile file(ui->rbtn2->isChecked() ? "hostAccount.txt" : "userAccount.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return false;
+    }
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        QStringList fields = line.split(" ");
+        if (fields.size() == 2 && fields[0] == account && fields[1] == password) {
+            return true;
+        }
+    }
+    return false;
 }
 
