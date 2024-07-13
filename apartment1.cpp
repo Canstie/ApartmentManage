@@ -27,16 +27,16 @@ apartment1::apartment1(QWidget *parent)
     , ui(new Ui::apartment1)
 {
     ui->setupUi(this);
-    //Ô¤ÏÈ¶ÁÈ¡ÎÄ¼ş
+    //é¢„å…ˆè¯»å–æ–‡ä»¶
     Apartment.read("apar.txt");
 
-    //´°¿Ú´óĞ¡ÉèÖÃ
+    //çª—å£å¤§å°è®¾ç½®
     setWindowFlags(windowFlags()& ~Qt::WindowMaximizeButtonHint);
     setFixedSize(this->width(), this->height());
-    //ÓÒ¼ü²Ëµ¥ÉèÖÃ
-    Act_Apar_Del = new QAction(tr("É¾³ı¹«Ô¢ĞÅÏ¢"), this);
-    Act_Apar_Chg = new QAction(tr("ĞŞ¸Ä¹«Ô¢ĞÅÏ¢"), this);
-    Act_Apar_Add = new QAction(tr("Ìí¼Ó¹«Ô¢ĞÅÏ¢"), this);
+    //å³é”®èœå•è®¾ç½®
+    Act_Apar_Del = new QAction(tr("åˆ é™¤å…¬å¯“ä¿¡æ¯"), this);
+    Act_Apar_Chg = new QAction(tr("ä¿®æ”¹å…¬å¯“ä¿¡æ¯"), this);
+    Act_Apar_Add = new QAction(tr("æ·»åŠ å…¬å¯“ä¿¡æ¯"), this);
 
     connect(Act_Apar_Del, SIGNAL(triggered()), this, SLOT(on_apar_del_triggered()));
     connect(Act_Apar_Chg, SIGNAL(triggered()), this, SLOT(on_apar_chg_triggered()));
@@ -79,12 +79,20 @@ void apartment1::display_apartment_info()
         ui->tableWidget->setItem(rows, 1, new QTableWidgetItem(p->id));
         p = p->next;
     }
+    for (int row = 0; row < ui->tableWidget->rowCount(); ++row) {
+        for (int col = 0; col < ui->tableWidget->columnCount(); ++col) {
+            QTableWidgetItem *item = ui->tableWidget->item(row, col);
+            if (item) {
+                item->setTextAlignment(Qt::AlignCenter); // è®¾ç½®æ–‡æœ¬å±…ä¸­å¯¹é½
+            }
+        }
+    }
 }
 
 //============Infos
 void apartment1::on_apar_read_triggered()
 {
-    QStringList fileNames = QFileDialog::getOpenFileNames(this, "´ò¿ªÎÄ¼ş", ".", ("ÎÄ±¾ÎÄ¼ş(*.txt)"));
+    QStringList fileNames = QFileDialog::getOpenFileNames(this, "æ‰“å¼€æ–‡ä»¶", ".", ("æ–‡æœ¬æ–‡ä»¶(*.txt)"));
     if(fileNames.size() == 0) return;
     for(int i = 0; i < fileNames.size(); ++i)
     {
@@ -96,21 +104,21 @@ void apartment1::on_apar_read_triggered()
     char buffer[20];
     itoa(Apartment.count, buffer,10);
     char output[100];
-    strcat(output, "µ¼ÈëÍê³É£¬µ±Ç°Ò»¹²ÓĞ");
+    strcat(output, "å¯¼å…¥å®Œæˆï¼Œå½“å‰ä¸€å…±æœ‰");
     strcat(output, buffer);
-    strcat(output, "¸öÊı¾İ");
-    QMessageBox::information(NULL, "µ¼ÈëÍê³É", output, QMessageBox::Ok, QMessageBox::Ok);
+    strcat(output, "ä¸ªæ•°æ®");
+    QMessageBox::information(NULL, "å¯¼å…¥å®Œæˆ", output, QMessageBox::Ok, QMessageBox::Ok);
     apartment1::display_apartment_info();
 }
 
 void apartment1::on_apar_save_triggered()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, "Áí´æÎª...", ".", ("ÎÄ±¾ÎÄ¼ş(*.txt)"));
+    QString fileName = QFileDialog::getOpenFileName(this, "å¦å­˜ä¸º...", ".", ("æ–‡æœ¬æ–‡ä»¶(*.txt)"));
     if(fileName.length() == 0) return;
     QByteArray bytearray = fileName.toLocal8Bit();
     char *temp = bytearray.data();
     Apartment.save(temp);
-    QMessageBox::information(NULL, "±£´æÍê³É", "±£´æÍê³É", QMessageBox::Ok, QMessageBox::Ok);
+    QMessageBox::information(NULL, "ä¿å­˜å®Œæˆ", "ä¿å­˜å®Œæˆ", QMessageBox::Ok, QMessageBox::Ok);
     apartment1::display_apartment_info();
 }
 
@@ -121,7 +129,7 @@ void apartment1::on_apar_del_triggered()
     QString text;
     if(!items.count() || ui->tabWidget->currentIndex() == 1)
     {
-        text = QInputDialog::getText(NULL, tr("É¾³ı¹«Ô¢Êı¾İ"), tr("ÇëÊäÈë¹«Ô¢ĞÅÏ¢"));
+        text = QInputDialog::getText(NULL, tr("åˆ é™¤å…¬å¯“æ•°æ®"), tr("è¯·è¾“å…¥å…¬å¯“ä¿¡æ¯"));
     }
     else
     {
@@ -138,24 +146,24 @@ void apartment1::on_apar_del_triggered()
     strcpy(p->id, temp);
     if(Apartment.del(p, 1))
     {
-        QMessageBox::information(NULL, "É¾³ı½á¹û", "É¾³ı³É¹¦", QMessageBox::Ok, QMessageBox::Ok);
+        QMessageBox::information(NULL, "åˆ é™¤ç»“æœ", "åˆ é™¤æˆåŠŸ", QMessageBox::Ok, QMessageBox::Ok);
     }
     else
-        QMessageBox::information(NULL, "É¾³ı½á¹û", "É¾³ıÊ§°Ü-²»´æÔÚ´Ë¹«Ô¢", QMessageBox::Ok, QMessageBox::Ok);
+        QMessageBox::information(NULL, "åˆ é™¤ç»“æœ", "åˆ é™¤å¤±è´¥-ä¸å­˜åœ¨æ­¤å…¬å¯“", QMessageBox::Ok, QMessageBox::Ok);
     delete p;
     apartment1::display_apartment_info();
 }
 
 void apartment1::on_apar_add_triggered()
 {
-    QString text = QInputDialog::getText(NULL, tr("Ìí¼Ó¹«Ô¢Êı¾İ"), tr("ÇëÊäÈë¹«Ô¢ĞÅÏ¢"));
+    QString text = QInputDialog::getText(NULL, tr("æ·»åŠ å…¬å¯“æ•°æ®"), tr("è¯·è¾“å…¥å…¬å¯“ä¿¡æ¯"));
     if(text.isEmpty())
         return;
     QByteArray bytearray = text.toLocal8Bit();
     bytearray = AnsiToUtf8(bytearray);
     char *aparid = bytearray.data();
 
-    QString text2 = QInputDialog::getText(NULL, tr("Ìí¼Ó¹«Ô¢Êı¾İ"), tr("ÇëÊäÈë×â½ğĞÅÏ¢"));
+    QString text2 = QInputDialog::getText(NULL, tr("æ·»åŠ å…¬å¯“æ•°æ®"), tr("è¯·è¾“å…¥ç§Ÿé‡‘ï¼Œåœ°åŒºï¼Œæˆ·å‹ä¿¡æ¯"));
     if(text2.isEmpty())
         return;
     QByteArray bytearray2 = text2.toLocal8Bit();
@@ -168,9 +176,9 @@ void apartment1::on_apar_add_triggered()
     strcpy(p->name, aparname);
 
     if(Apartment.add(p))
-        QMessageBox::information(NULL, "Ìí¼Ó½á¹û", "Ìí¼Ó³É¹¦", QMessageBox::Ok, QMessageBox::Ok);
+        QMessageBox::information(NULL, "æ·»åŠ ç»“æœ", "æ·»åŠ æˆåŠŸ", QMessageBox::Ok, QMessageBox::Ok);
     else
-        QMessageBox::information(NULL, "Ìí¼Ó½á¹û", "Ìí¼ÓÊ§°Ü-¹«Ô¢ÖØ¸´", QMessageBox::Ok, QMessageBox::Ok);
+        QMessageBox::information(NULL, "æ·»åŠ ç»“æœ", "æ·»åŠ å¤±è´¥-å…¬å¯“é‡å¤", QMessageBox::Ok, QMessageBox::Ok);
     apartment1::display_apartment_info();
 }
 
@@ -181,7 +189,7 @@ void apartment1::on_apar_chg_triggered()
     QString text;
     if(!items.count() || ui->tabWidget->currentIndex() == 1)
     {
-        text = QInputDialog::getText(NULL, tr("ĞŞ¸Ä¹«Ô¢Êı¾İ"), tr("ÇëÊäÈë¹«Ô¢ĞÅÏ¢"));
+        text = QInputDialog::getText(NULL, tr("ä¿®æ”¹å…¬å¯“æ•°æ®"), tr("è¯·è¾“å…¥å…¬å¯“ä¿¡æ¯"));
     }
     else
     {
@@ -194,7 +202,7 @@ void apartment1::on_apar_chg_triggered()
     bytearray = AnsiToUtf8(bytearray);
     strcpy(aparid, bytearray.data());
 
-    QString text2 = QInputDialog::getText(NULL, tr("ĞŞ¸Ä¹«Ô¢Êı¾İ"), tr("ÇëÊäÈëĞÂ×â½ğĞÅÏ¢"));
+    QString text2 = QInputDialog::getText(NULL, tr("ä¿®æ”¹å…¬å¯“æ•°æ®"), tr("è¯·è¾“å…¥æ–°ä¿¡æ¯ï¼ˆç§Ÿé‡‘ åœ°åŒº æˆ·å‹ï¼‰"));
     if(text2.isEmpty())
         return;
     QByteArray bytearray2 = text2.toLocal8Bit();
@@ -205,10 +213,9 @@ void apartment1::on_apar_chg_triggered()
     strcpy(p->id, aparid);
     strcpy(p->name, aparnewname);
     if(Apartment.chg(p, 0))
-        QMessageBox::information(NULL, "ĞŞ¸Ä½á¹û", "ĞŞ¸Ä³É¹¦", QMessageBox::Ok, QMessageBox::Ok);
+        QMessageBox::information(NULL, "ä¿®æ”¹ç»“æœ", "ä¿®æ”¹æˆåŠŸ", QMessageBox::Ok, QMessageBox::Ok);
     else
-        QMessageBox::information(NULL, "ĞŞ¸Ä½á¹û", "ĞŞ¸ÄÊ§°Ü-¹«Ô¢²»´æÔÚ", QMessageBox::Ok, QMessageBox::Ok);
+        QMessageBox::information(NULL, "ä¿®æ”¹ç»“æœ", "ä¿®æ”¹å¤±è´¥-å…¬å¯“ä¸å­˜åœ¨", QMessageBox::Ok, QMessageBox::Ok);
     delete p;
     apartment1::display_apartment_info();
 }
-

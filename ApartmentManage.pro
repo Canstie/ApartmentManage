@@ -18,7 +18,8 @@ SOURCES += \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
-    userui.cpp
+    userui.cpp \
+    visit.cpp
 
 HEADERS += \
     apartment.h \
@@ -27,7 +28,8 @@ HEADERS += \
     leasemanagement.h \
     login.h \
     mainwindow.h \
-    userui.h
+    userui.h \
+    visit.h
 
 FORMS += \
     apartment1.ui \
@@ -35,7 +37,8 @@ FORMS += \
     leasemanagement.ui \
     login.ui \
     mainwindow.ui \
-    userui.ui
+    userui.ui \
+    visit.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

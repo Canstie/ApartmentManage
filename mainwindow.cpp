@@ -3,6 +3,7 @@
 #include "apartment1.h"
 #include "information.h"
 #include "leasemanagement.h"
+#include "visit.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -38,6 +39,13 @@ void MainWindow::openInformation() {
 void MainWindow::on_pushButton_4_clicked()
 {
     LeaseManagement *a = new LeaseManagement;
+    a->show();
+}
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    visit *a =new visit;
     a->show();
 }
 

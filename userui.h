@@ -18,6 +18,8 @@ private slots:
     void openInformation();
     void on_pushButton_3_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::userui *ui;
 };

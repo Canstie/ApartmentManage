@@ -2,6 +2,7 @@
 #define APARTMENT1_H
 
 #include <QMainWindow>
+#include <QAction>
 
 namespace Ui {
 class apartment1;
