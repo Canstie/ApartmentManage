@@ -2,6 +2,7 @@
 #include "ui_userui.h"
 #include "information.h"
 #include "visit.h"
+#include "myinfor.h"
 
 userui::userui(QWidget *parent)
     : QWidget(parent)
@@ -28,6 +29,13 @@ void userui::openInformation() {
 void userui::on_pushButton_clicked()
 {
     visit *a =new visit;
+    a->show();
+}
+
+
+void userui::on_pushButton_2_clicked()
+{
+    myinfor *a = new myinfor;
     a->show();
 }
 

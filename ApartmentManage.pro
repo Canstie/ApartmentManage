@@ -18,6 +18,7 @@ SOURCES += \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
+    myinfor.cpp \
     userui.cpp \
     visit.cpp
 
@@ -28,6 +29,7 @@ HEADERS += \
     leasemanagement.h \
     login.h \
     mainwindow.h \
+    myinfor.h \
     userui.h \
     visit.h
 
@@ -37,6 +39,7 @@ FORMS += \
     leasemanagement.ui \
     login.ui \
     mainwindow.ui \
+    myinfor.ui \
     userui.ui \
     visit.ui
 

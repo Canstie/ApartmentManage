@@ -113,7 +113,7 @@ void apartment1::on_apar_read_triggered()
 
 void apartment1::on_apar_save_triggered()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, "另存为...", ".", ("文本文件(*.txt)"));
+    QString fileName = "1.txt";
     if(fileName.length() == 0) return;
     QByteArray bytearray = fileName.toLocal8Bit();
     char *temp = bytearray.data();

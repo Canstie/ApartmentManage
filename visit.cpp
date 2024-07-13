@@ -29,6 +29,7 @@ visit::visit(QWidget *parent)
     ui->setupUi(this);
     ui->tableWidget->setColumnCount(4); // 设置列数
     ui->tableWidget->setHorizontalHeaderLabels(QStringList() << "价格" << "位置" << "户型"<<"公寓"); // 设置列头
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     // 从txt文件读取房屋列表作为数据源
     QList<House> houseList = readHouseData("1.txt");
     qDebug()<<houseList.size();
@@ -92,6 +93,7 @@ visit::visit(QWidget *parent)
     // 连接QPushButton的clicked信号到槽函数，实现租赁功能
     QObject::connect(ui->pushButton, &QPushButton::clicked, [this] {
         // 获取当前选中的行
+
         QList<QTableWidgetItem *> selectedItems = ui->tableWidget->selectedItems();
         if (!selectedItems.isEmpty()) {
             int selectedRow = selectedItems.first()->row();
@@ -102,6 +104,15 @@ visit::visit(QWidget *parent)
 
             // 显示租赁信息
             QMessageBox::information(nullptr, "租赁", QString("您已成功租房:\n\n价格: %1\n位置: %2\n户型: %3\n公寓：%4").arg(price).arg(location).arg(type).arg(name));
+            QString filename = "2.txt";
+            QFile file(filename);
+            if(file.open(QIODevice::Append|QIODevice::Text)){
+                QTextStream stream(&file);
+                stream << price << " " << location << " " << type << " " << name << "\n";
+                file.close();
+            }
+
+
         } else {
             QMessageBox::warning(nullptr, "租赁", "请选择一个户型.");
         }
