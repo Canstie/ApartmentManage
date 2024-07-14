@@ -1,21 +1,5 @@
 #include "apartment1.h"
 #include "ui_apartment1.h"
-#include <cstring>
-#include <cstdio>
-#include <QByteArray>
-#include <QCursor>
-#include <QDebug>
-#include <QFile>
-#include <QFileDialog>
-#include <QInputDialog>
-#include <QIODevice>
-#include <QMenu>
-#include <QMessageBox>
-#include <QString>
-#include <QStringList>
-#include <QTextCodec>
-#include <QTextStream>
-#include <QTabWidget>
 #include "apartment.h"
 
 apartment Apartment;

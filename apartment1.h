@@ -3,6 +3,20 @@
 
 #include <QMainWindow>
 #include <QAction>
+#include <QByteArray>
+#include <QCursor>
+#include <QDebug>
+#include <QFile>
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QIODevice>
+#include <QMenu>
+#include <QMessageBox>
+#include <QString>
+#include <QStringList>
+#include <QTextCodec>
+#include <QTextStream>
+#include <QTabWidget>
 
 namespace Ui {
 class apartment1;

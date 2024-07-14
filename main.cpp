@@ -1,6 +1,4 @@
-#include "mainwindow.h"
 #include "login.h"
-#include "userui.h"
 
 #include <QApplication>
 
