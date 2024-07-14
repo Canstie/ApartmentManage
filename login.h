@@ -5,24 +5,26 @@
 #include <QMessageBox>
 #include <QFile>
 #include <QTextStream>
-#include <QMessageBox>
+#include "userui.h"
+#include "mainwindow.h"
 
 namespace Ui {
 class Login;
 }
 
-class User{
+
+
+class User {
 public:
-    User(QString name,QString passward,bool isHost)
-        :_name(name),_passward(passward),_isHost(isHost)
-    {}
-    QString getname(){return _name;}
-    QString getpassword(){return _passward;}
-    bool getishost(){return _isHost;}
+    User(QString name, QString password, bool isHost)
+        : _name(name), _password(password), _isHost(isHost) {}
+    QString getName() { return _name; }
+    QString getPassword() { return _password; }
+    bool getIsHost() { return _isHost; }
 
 private:
     QString _name;
-    QString _passward;
+    QString _password;
     bool _isHost;
 };
 
@@ -33,16 +35,20 @@ class Login : public QMainWindow
 public:
     explicit Login(QWidget *parent = nullptr);
     ~Login();
+
 signals:
-    void loginSuccess(bool isAdmin);
+    void loginSuccess(const QString &account, bool isAdmin);
+    void senddata1(const QString &data);
+    void senddata2(const QString &data);
 
 private slots:
     void on_signupbtn_clicked();
     void on_loginbtn_clicked();
 
-
 private:
     Ui::Login *ui;
+    MainWindow *mw;
+    userui *us;
     bool checkCredentials(const QString &account, const QString &password);
 };
 

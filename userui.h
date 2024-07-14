@@ -14,6 +14,8 @@ class userui : public QWidget
 public:
     explicit userui(QWidget *parent = nullptr);
     ~userui();
+public slots:
+    void recievedata2(const QString &data);
 private slots:
     void openInformation();
     void on_pushButton_3_clicked();
@@ -24,6 +26,7 @@ private slots:
 
 private:
     Ui::userui *ui;
+    QString ddd;
 };
 
 #endif // USERUI_H

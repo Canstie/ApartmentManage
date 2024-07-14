@@ -1,14 +1,15 @@
 #include "information.h"
 #include "ui_information.h"
-#include <QMessageBox>
 
-information::information(const QString &filePath,QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::information),filepath(filePath)
+information::information(const QString &account, bool isHost, QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::information),
+    originalAccount(account),
+    isHost(isHost)
 {
     ui->setupUi(this);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    loadInformation(filePath);
+    filepath = isHost ? "hostAccount.txt" : "userAccount.txt";
+    loadAccountInfo();
 }
 
 information::~information()
@@ -16,54 +17,86 @@ information::~information()
     delete ui;
 }
 
-void information::loadInformation(const QString &filePath) {
-    QFile file(filePath);
+void information::loadAccountInfo() {
+    QFile file(filepath);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, "错误", "无法打开账户文件");
         return;
     }
-
     QTextStream in(&file);
-    int row = 0;
     while (!in.atEnd()) {
-        QString line = in.readLine();
-        QStringList fields = line.split(" ");
-        if (fields.size() == 2) {
-            ui->tableWidget->insertRow(row);
-            ui->tableWidget->setItem(row, 0, new QTableWidgetItem(fields[0]));
-            ui->tableWidget->setItem(row, 1, new QTableWidgetItem(fields[1]));
-            row++;
+        QString line = in.readLine().trimmed();
+        QStringList fields = line.split(",");
+        if (fields[0] == originalAccount) {
+            ui->lineEdit_4->setText(fields[0]); // 账号
+            ui->lineEdit_3->setText(fields[1]); // 密码
+            break;
         }
     }
     file.close();
 }
 
-
-void information::on_pushButton_2_clicked()
-{
-    handleSaveChanges();
-}
-
-void information::handleSaveChanges() {
-    QString filePath = getfilepath();
-    QFile file(filePath);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QMessageBox::warning(this, "保存失败", "打开失败");
+void information::saveAccountInfo(const QString &newAccount, const QString &newPassword) {
+    QFile file(filepath);
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        QMessageBox::warning(this, "错误", "无法打开账户文件");
         return;
     }
-
-    QTextStream out(&file);
-
-    int rowCount = ui->tableWidget->rowCount();
-    for (int row = 0; row < rowCount; ++row) {
-        QTableWidgetItem *accountItem = ui->tableWidget->item(row, 0);
-        QTableWidgetItem *passwordItem = ui->tableWidget->item(row, 1);
-
-        if (accountItem && passwordItem) {
-            QString account = accountItem->text();
-            QString password = passwordItem->text();
-            out << account << " " << password << "\n";
+    QTextStream in(&file);
+    QStringList lines;
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        QStringList fields = line.split(",");
+        if (fields.size() == 2 && fields[0] == originalAccount) {
+            lines.append(newAccount + "," + newPassword);
+        } else {
+            lines.append(line);
         }
     }
+    file.resize(0);
+    QTextStream out(&file);
+    for (const QString &line : lines) {
+        out << line << "\n";
+    }
     file.close();
-    QMessageBox::information(this, "保存成功", "账户密码已经被保存");
+    originalAccount = newAccount; // 更新原始账号
+    QMessageBox::information(this, "成功", "账户信息已修改");
+}
+
+void information::deleteAccountInfo() {
+    QFile file(filepath);
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        QMessageBox::warning(this, "错误", "无法打开账户文件");
+        return;
+    }
+    QTextStream in(&file);
+    QStringList lines;
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed();
+        QStringList fields = line.split(",");
+        if (fields.size() == 2 && fields[0] != originalAccount) {
+            lines.append(line);
+        }
+    }
+    file.resize(0);
+    QTextStream out(&file);
+    for (const QString &line : lines) {
+        out << line << "\n";
+    }
+    file.close();
+    QMessageBox::information(this, "成功", "账户已注销");
+    close(); // 关闭窗口
+}
+
+void information::on_pushButton_4_clicked() {
+    QString newAccount = ui->lineEdit_4->text();
+    QString newPassword = ui->lineEdit_3->text();
+    saveAccountInfo(newAccount, newPassword);
+}
+
+void information::on_pushButton_3_clicked() {
+    int ret = QMessageBox::warning(this, "确认", "确定要注销此账户吗？", QMessageBox::Yes | QMessageBox::No);
+    if (ret == QMessageBox::Yes) {
+        deleteAccountInfo();
+    }
 }

@@ -16,13 +16,17 @@ userui::~userui()
     delete ui;
 }
 
+void userui::recievedata2(const QString &data){
+    ddd = data;
+}
+
 void userui::on_pushButton_3_clicked()
 {
     openInformation();
 }
 
 void userui::openInformation() {
-    information *info = new information("userAccount.txt", this);
+    information *info = new information(ddd, false);
     info->show();
 }
 

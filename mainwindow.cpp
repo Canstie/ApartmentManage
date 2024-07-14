@@ -6,6 +6,7 @@
 #include "visit.h"
 
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -24,14 +25,19 @@ void MainWindow::on_pushButton_clicked()
     a->show();
 }
 
+void MainWindow::recievedata1(const QString &data){
+    adad = data;
+}
+
 
 void MainWindow::on_pushButton_5_clicked()
 {
     openInformation();
 }
 
+
 void MainWindow::openInformation() {
-    information *info = new information("hostAccount.txt", this);
+    information *info = new information(adad, true);
     info->show();
 }
 
@@ -48,4 +54,5 @@ void MainWindow::on_pushButton_2_clicked()
     visit *a =new visit;
     a->show();
 }
+
 

@@ -17,16 +17,19 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void recievedata1(const QString &data);
+
 private slots:
     void on_pushButton_clicked();
     void openInformation();
     void on_pushButton_5_clicked();
-
     void on_pushButton_4_clicked();
 
     void on_pushButton_2_clicked();
 
 private:
     Ui::MainWindow *ui;
+    QString adad;
 };
 #endif // MAINWINDOW_H

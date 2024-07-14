@@ -8,14 +8,14 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     Login login;
-    userui user1;
-    MainWindow mainwindow;
 
-    QObject::connect(&login, &Login::loginSuccess, [&](bool isAdmin) {
+    QObject::connect(&login, &Login::loginSuccess, [&](const QString &account, bool isAdmin) {
         if (isAdmin) {
-            mainwindow.show();
+            MainWindow *mainwindow = new MainWindow;
+            mainwindow->show();
         } else {
-            user1.show();
+            userui *user1 = new userui;
+            user1->show();
         }
         login.close();
     });
