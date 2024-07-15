@@ -1,134 +1,108 @@
 #include "apartment.h"
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>
-apartment::apartment()
-{
-    apartment::count = 0;
-    apartment::head = NULL;
+#include <QFile>
+#include <QTextStream>
+#include <QStringList>
+
+apartment::apartment() {
+    count = 0;
+    head = nullptr;
 }
 
-apartment::~apartment()
-{
-
+apartment::~apartment() {
+    while (head != nullptr) {
+        AparInfo* temp = head;
+        head = head->next;
+        delete temp;
+    }
 }
 
-bool apartment::read(const char *filename)
-{
-    FILE *fp = fopen(filename, "r");
-    if(fp == NULL)
-        return 0;
-    char ch;
-    int i = 0;
-    bool mode = 0;
-    AparInfo *p = new AparInfo;
-    p->next = NULL;
-    while((ch = fgetc(fp)) != EOF)
-    {
-        if(mode == 0 && ch != ' ' && ch != '\n')
-            p->name[i++]=ch;
-        else if(mode == 1 && ch != ' ' && ch != '\n')
-            p->id[i++] = ch;
-        else if(ch == '\n')
-        {
-            p->id[i] = '\0';
-            i = 0;
-            mode = 0;
-            AparInfo *point;
-            if((point = apartment::serh(p, 1)) != NULL)
-            {
-                strcpy(point->name, p->name);
-            }
-            else
-            {
-                if(apartment::head != NULL)
-                    p->next = apartment::head;
-                apartment::head = p;
-                ++apartment::count;
-            }
-            p = new AparInfo;
-            p->next = NULL;
-        }
-        else if(ch == ' ')
-        {
-            p->name[i] = '\0';
-            i = 0;
-            mode = 1;
+void apartment::read(const char *filename) {
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList fields = line.split(" ");
+        if (fields.size() == 4) {
+            AparInfo *newInfo = new AparInfo;
+            strcpy(newInfo->price, fields[0].toUtf8().data());
+            strcpy(newInfo->location, fields[1].toUtf8().data());
+            strcpy(newInfo->type, fields[2].toUtf8().data());
+            strcpy(newInfo->name, fields[3].toUtf8().data());
+            newInfo->next = head;
+            head = newInfo;
+            count++;
         }
     }
-    fclose(fp);
-    return 1;
+    file.close();
 }
 
-bool apartment::save(const char *filename)
-{
-    AparInfo *p = apartment::head;
-    FILE *fp = fopen(filename, "w");
-    while(p != NULL)
-    {
-        fprintf(fp, p->name);
-        fprintf(fp, " ");
-        fprintf(fp, p->id);
-        fprintf(fp, "\n");
-        p = p->next;
+void apartment::save(const char *filename) {
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+
+    QTextStream out(&file);
+    AparInfo *current = head;
+    while (current != NULL) {
+        out << current->price << " "
+            << current->location << " "
+            << current->type << " "
+            << current->name << "\n";
+        current = current->next;
     }
-    fclose(fp);
-    return 1;
+    file.close();
 }
 
-bool apartment::add(AparInfo *info)
-{
-    if(!(apartment::serh(info, 1) == NULL))
-        return 0;
-    apartment::count += 1;
-    info->next = apartment::head;
-    apartment::head = info;
-    return 1;
+bool apartment::add(AparInfo *info) {
+    if (serh(info, 0) != nullptr)
+        return false;
+    count += 1;
+    info->next = head;
+    head = info;
+    return true;
 }
 
-bool apartment::del(AparInfo *info, bool type)
-{
+bool apartment::del(AparInfo *info, bool type) {
     AparInfo *point;
-    AparInfo *p = apartment::head;
-    if((point = apartment::serh(info, type)) == NULL)
-        return 0;
-    apartment::count -= 1;
-    if(p == point)
-    {
-        apartment::head = apartment::head->next;
-        return 1;
+    AparInfo *p = head;
+    if ((point = serh(info, type)) == nullptr)
+        return false;
+    count -= 1;
+    if (p == point) {
+        head = head->next;
+        delete point;
+        return true;
     }
-    while(p->next != NULL)
-        if(p->next == point)
+    while (p->next != nullptr) {
+        if (p->next == point)
             break;
         else
             p = p->next;
+    }
     p->next = p->next->next;
-    return 1;
+    delete point;
+    return true;
 }
 
-bool apartment::chg(AparInfo *info, bool type)
-{
+bool apartment::chg(AparInfo *info, bool type) {
     AparInfo *point;
-    if((point = apartment::serh(info, 1)) == NULL)
-        return 0;
-    if(type == 0)
-        strcpy(point->name, info->name);
-    else if(type == 1)
-        strcpy(point->id, info->id);
-    return 1;
+    if ((point = serh(info, 0)) == nullptr)
+        return false;
+    strcpy(point->price, info->price);
+    strcpy(point->location, info->location);
+    strcpy(point->type, info->type);
+    return true;
 }
 
-AparInfo *apartment::serh(AparInfo *info, int type)
-{
-    AparInfo *p = apartment::head;
-    while(p != NULL)
-    {
-        if(type == 0 && strcmp(info->name, p->name) == 0)
-            return p;
-        else if(type == 1 && strcmp(info->id, p->id) == 0)
+AparInfo *apartment::serh(AparInfo *info, int type) {
+    AparInfo *p = head;
+    while (p != nullptr) {
+        if (type == 0 && strcmp(info->name, p->name) == 0)
             return p;
         p = p->next;
     }
-    return NULL;
+    return nullptr;
 }

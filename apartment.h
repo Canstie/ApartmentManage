@@ -1,25 +1,26 @@
 #ifndef APARTMENT_H
 #define APARTMENT_H
 
-#define Apar_INFO_SIZE 200
-struct AparInfo{
-    char name[Apar_INFO_SIZE];
-    char id[Apar_INFO_SIZE];
-    AparInfo *next;
+struct AparInfo {
+    char price[20];
+    char location[50];
+    char type[20];
+    char name[100];
+    AparInfo* next;
 };
 
-class apartment{
+class apartment {
 public:
     apartment();
     ~apartment();
-    int count;
+    void read(const char *filename);
+    void save(const char *filename);
+    bool add(AparInfo *info);
+    bool del(AparInfo *info, bool type);
+    bool chg(AparInfo *info, bool type);
+    AparInfo *serh(AparInfo *info, int type);
     AparInfo *head;
-    bool read(const char *);
-    bool save(const char *);
-    AparInfo *serh(AparInfo *, int);
-    bool add(AparInfo *);
-    bool del(AparInfo *, bool);
-    bool chg(AparInfo *, bool);
+    int count;
 };
 
 #endif // APARTMENT_H
