@@ -28,7 +28,7 @@ apartment1::apartment1(QWidget *parent)
 {
     ui->setupUi(this);
     //预先读取文件
-    Apartment.read("apar.txt");
+    Apartment.read("1.txt");
 
     //窗口大小设置
     setWindowFlags(windowFlags()& ~Qt::WindowMaximizeButtonHint);

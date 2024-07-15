@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>学生信息管理系统</string>
+   <string>公寓管理</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -69,7 +69,7 @@
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>17</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_2">
@@ -130,50 +130,6 @@
     <string>A</string>
    </property>
   </action>
-  <action name="class_read">
-   <property name="text">
-    <string>读取文件</string>
-   </property>
-   <property name="toolTip">
-    <string>读取文件</string>
-   </property>
-   <property name="shortcut">
-    <string>O</string>
-   </property>
-  </action>
-  <action name="class_save">
-   <property name="text">
-    <string>保存为</string>
-   </property>
-   <property name="toolTip">
-    <string>保存到文件中</string>
-   </property>
-   <property name="shortcut">
-    <string>S</string>
-   </property>
-  </action>
-  <action name="class_del">
-   <property name="text">
-    <string>删除课程</string>
-   </property>
-   <property name="toolTip">
-    <string>手动删除课程信息</string>
-   </property>
-   <property name="shortcut">
-    <string>D</string>
-   </property>
-  </action>
-  <action name="class_add">
-   <property name="text">
-    <string>添加课程</string>
-   </property>
-   <property name="toolTip">
-    <string>手动添加课程信息</string>
-   </property>
-   <property name="shortcut">
-    <string>A</string>
-   </property>
-  </action>
   <action name="apar_chg">
    <property name="text">
     <string>修改信息</string>
@@ -183,69 +139,6 @@
    </property>
    <property name="shortcut">
     <string>M</string>
-   </property>
-  </action>
-  <action name="choose_class">
-   <property name="text">
-    <string>选择课程</string>
-   </property>
-   <property name="shortcut">
-    <string>C</string>
-   </property>
-  </action>
-  <action name="delete_class">
-   <property name="text">
-    <string>退选课程</string>
-   </property>
-   <property name="shortcut">
-    <string>D</string>
-   </property>
-  </action>
-  <action name="search_stu">
-   <property name="text">
-    <string>查询单个学生</string>
-   </property>
-   <property name="shortcut">
-    <string>B</string>
-   </property>
-  </action>
-  <action name="search_class">
-   <property name="text">
-    <string>查询单个课程</string>
-   </property>
-   <property name="shortcut">
-    <string>A</string>
-   </property>
-  </action>
-  <action name="choose_read">
-   <property name="text">
-    <string>读取文件</string>
-   </property>
-   <property name="shortcut">
-    <string>O</string>
-   </property>
-  </action>
-  <action name="choose_save">
-   <property name="text">
-    <string>保存为</string>
-   </property>
-   <property name="shortcut">
-    <string>S</string>
-   </property>
-  </action>
-  <action name="add_grade">
-   <property name="text">
-    <string>添加成绩</string>
-   </property>
-  </action>
-  <action name="del_grade">
-   <property name="text">
-    <string>删除成绩</string>
-   </property>
-  </action>
-  <action name="caculate">
-   <property name="text">
-    <string>计算学分绩</string>
    </property>
   </action>
  </widget>

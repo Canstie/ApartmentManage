@@ -1,7 +1,7 @@
 #ifndef APARTMENT_H
 #define APARTMENT_H
 
-#define Apar_INFO_SIZE 20
+#define Apar_INFO_SIZE 200
 struct AparInfo{
     char name[Apar_INFO_SIZE];
     char id[Apar_INFO_SIZE];

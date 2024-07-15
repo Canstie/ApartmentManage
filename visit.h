@@ -12,13 +12,15 @@
 #include <QStringListModel>
 #include <QFile>
 #include <QTextStream>
+#include <QDateEdit>
+#include <QSpinBox>
 #include <QDebug>
 
 namespace Ui {
 class visit;
 }
 
-    // 定义一个类来存储房屋信息
+// 定义一个类来存储房屋信息
 class House {
 public:
     House(int price, const QString &location, const QString &type, const QString &name)
@@ -46,7 +48,6 @@ public:
     explicit visit(QWidget *parent = nullptr);
     ~visit();
 
-
 private slots:
     void filterHouses(const QString &text);
     void rentHouse();
@@ -57,6 +58,8 @@ private:
     QTableWidget *tableWidget;
     QCompleter *completer;
     QPushButton *rentButton;
+    QDateEdit *startDateEdit;
+    QSpinBox *durationSpinBox;
     QList<House> houseList;
 };
 

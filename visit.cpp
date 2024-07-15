@@ -1,5 +1,6 @@
 #include "visit.h"
 #include "ui_visit.h"
+#include <QHeaderView>
 
 visit::visit(QWidget *parent)
     : QMainWindow(parent)
@@ -18,6 +19,7 @@ visit::visit(QWidget *parent)
     tableWidget = new QTableWidget(centralWidget);
     tableWidget->setColumnCount(4); // 设置列数
     tableWidget->setHorizontalHeaderLabels(QStringList() << "价格" << "位置" << "户型" << "公寓"); // 设置列头
+    tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     // 从txt文件读取房屋列表作为数据源
     houseList = readHouseData("1.txt");
@@ -48,6 +50,15 @@ visit::visit(QWidget *parent)
     // 连接QLineEdit的textChanged信号到槽函数，实现搜索逻辑
     connect(lineEdit, &QLineEdit::textChanged, this, &visit::filterHouses);
 
+    // 创建QDateEdit用于选择租赁起始日期
+    startDateEdit = new QDateEdit(QDate::currentDate(), centralWidget);
+    startDateEdit->setCalendarPopup(true);
+
+    // 创建QSpinBox用于选择租赁总时长
+    durationSpinBox = new QSpinBox(centralWidget);
+    durationSpinBox->setRange(1, 60);
+    durationSpinBox->setSuffix(" 月");
+
     // 创建QPushButton用于租赁房屋
     rentButton = new QPushButton("租赁", centralWidget);
 
@@ -56,6 +67,8 @@ visit::visit(QWidget *parent)
 
     // 添加控件到布局
     layout->addWidget(lineEdit);
+    layout->addWidget(startDateEdit);
+    layout->addWidget(durationSpinBox);
     layout->addWidget(tableWidget);
     layout->addWidget(rentButton);
 
@@ -105,16 +118,20 @@ void visit::rentHouse() {
         QString location = tableWidget->item(selectedRow, 1)->text();
         QString type = tableWidget->item(selectedRow, 2)->text();
         QString name = tableWidget->item(selectedRow, 3)->text();
+        QDate startDate = startDateEdit->date();
+        int duration = durationSpinBox->value();
+        QDate endDate = startDate.addMonths(duration);
+
         QString filename = "2.txt";
         QFile file(filename);
         if(file.open(QIODevice::Append|QIODevice::Text)){
             QTextStream stream(&file);
-            stream << price << " " << location << " " << type << " " << name << "\n";
+            stream << location << "\t" << price << "\t" << 1 << "\t" << startDate.toString("yyyy-MM-dd") << "\t" << duration << "\t" << endDate.toString("yyyy-MM-dd") << "\n";
             file.close();
         }
 
         // 显示租赁信息
-        QMessageBox::information(this, "租赁", QString("您已成功租房:\n\n价格: %1\n位置: %2\n户型: %3\n公寓：%4").arg(price).arg(location).arg(type).arg(name));
+        QMessageBox::information(this, "租赁", QString("您已成功租房:\n\n价格: %1\n位置: %2\n户型: %3\n公寓：%4\n起始日期: %5\n租赁总时长: %6 月\n结束日期: %7").arg(price).arg(location).arg(type).arg(name).arg(startDate.toString("yyyy-MM-dd")).arg(duration).arg(endDate.toString("yyyy-MM-dd")));
     } else {
         QMessageBox::warning(this, "租赁", "请选择一个户型.");
     }
@@ -134,16 +151,11 @@ QList<House> readHouseData(const QString &fileName) {
             }
         }
         file.close();
-    } else {
-        qDebug() << "Failed to open file:" << fileName;
     }
     return houseList;
 }
-
 
 visit::~visit()
 {
     delete ui;
 }
-
-
