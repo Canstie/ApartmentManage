@@ -36,7 +36,7 @@ apartment1::apartment1(QWidget *parent)
     // Update table headers
     ui->tableWidget->setColumnCount(4);
     QStringList headers;
-    headers << "Price" << "Location" << "Type" << "Name";
+    headers << "租金" << "位置" << "户型" << "公寓";
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
     display_apartment_info();
