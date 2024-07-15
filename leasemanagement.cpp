@@ -20,18 +20,15 @@ LeaseManagement::LeaseManagement(QWidget *parent) :
     loadLeases();
 
     // 创建按钮用于添加、删除和修改租赁记录
-    addButton = new QPushButton("添加", centralWidget);
     deleteButton = new QPushButton("删除", centralWidget);
     modifyButton = new QPushButton("修改", centralWidget);
 
     // 连接按钮的点击信号到槽函数
-    connect(addButton, &QPushButton::clicked, this, &LeaseManagement::addLease);
     connect(deleteButton, &QPushButton::clicked, this, &LeaseManagement::deleteLease);
     connect(modifyButton, &QPushButton::clicked, this, &LeaseManagement::modifyLease);
 
     // 添加控件到布局
     layout->addWidget(tableWidget);
-    layout->addWidget(addButton);
     layout->addWidget(deleteButton);
     layout->addWidget(modifyButton);
 
@@ -58,10 +55,6 @@ void LeaseManagement::loadLeases() {
         }
         file.close();
     }
-}
-
-void LeaseManagement::addLease() {
-    // 添加租赁记录的逻辑（可实现对话框让用户输入租赁信息）
 }
 
 void LeaseManagement::deleteLease() {
