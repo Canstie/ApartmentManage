@@ -41,13 +41,12 @@ void Login::on_loginbtn_clicked()
         if(ui->rbtn2->isChecked()==true){
             emit senddata1(account);
             mw->show();
-            this->close();
+            //this->show();
         }
         else{
             emit senddata2(account);
             us->show();
-            this->close();
-            //emit loginSuccess(account, ui->rbtn2->isChecked());  // 传递账号信息和用户类型
+            //this->show();
         }
     } else {
         QMessageBox::warning(this, "警告", "账户或密码错误");
