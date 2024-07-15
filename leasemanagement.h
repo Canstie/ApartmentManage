@@ -22,14 +22,12 @@ public:
     ~LeaseManagement();
 
 private slots:
-    void addLease();
     void deleteLease();
     void modifyLease();
 
 private:
     Ui::LeaseManagement *ui;
     QTableWidget *tableWidget;
-    QPushButton *addButton;
     QPushButton *deleteButton;
     QPushButton *modifyButton;
     void loadLeases();

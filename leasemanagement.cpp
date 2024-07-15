@@ -1,5 +1,6 @@
 #include "LeaseManagement.h"
 #include "ui_LeaseManagement.h"
+#include "ModifyLeaseDialog.h"
 
 LeaseManagement::LeaseManagement(QWidget *parent) :
     QMainWindow(parent),
@@ -84,6 +85,40 @@ void LeaseManagement::deleteLease() {
 
 void LeaseManagement::modifyLease() {
     // 修改选中的租赁记录的逻辑（可实现对话框让用户修改租赁信息）
+    int currentRow = tableWidget->currentRow();
+    if (currentRow >= 0) {
+        QStringList currentData;
+        for (int col = 0; col < tableWidget->columnCount(); ++col) {
+            currentData << tableWidget->item(currentRow, col)->text();
+        }
+
+        ModifyLeaseDialog dialog(this);
+        dialog.setLeaseData(currentData);
+        if (dialog.exec() == QDialog::Accepted) {
+            QStringList newData = dialog.getLeaseData();
+            for (int col = 0; col < newData.size(); ++col) {
+                tableWidget->setItem(currentRow, col, new QTableWidgetItem(newData.at(col)));
+            }
+
+            // Update the file
+            QFile file("2.txt");
+            if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                QTextStream out(&file);
+                for (int row = 0; row < tableWidget->rowCount(); ++row) {
+                    for (int col = 0; col < tableWidget->columnCount(); ++col) {
+                        out << tableWidget->item(row, col)->text();
+                        if (col < tableWidget->columnCount() - 1) {
+                            out << "\t";
+                        }
+                    }
+                    out << "\n";
+                }
+                file.close();
+            }
+        }
+    } else {
+        QMessageBox::warning(this, "修改", "请选择要修改的租赁记录.");
+    }
 }
 
 LeaseManagement::~LeaseManagement()
