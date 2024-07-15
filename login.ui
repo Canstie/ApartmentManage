@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>590</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="font">
    <font>
-    <pointsize>11</pointsize>
+    <pointsize>9</pointsize>
    </font>
   </property>
   <property name="windowTitle">
@@ -22,15 +22,15 @@
    <widget class="QPushButton" name="signupbtn">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>300</y>
+      <x>300</x>
+      <y>240</y>
       <width>211</width>
       <height>71</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
+      <pointsize>11</pointsize>
       <bold>false</bold>
      </font>
     </property>
@@ -41,15 +41,15 @@
    <widget class="QPushButton" name="loginbtn">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>300</y>
+      <x>50</x>
+      <y>240</y>
       <width>211</width>
       <height>71</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
+      <pointsize>11</pointsize>
       <bold>false</bold>
      </font>
     </property>
@@ -60,15 +60,15 @@
    <widget class="QLabel" name="username">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>70</y>
+      <x>30</x>
+      <y>10</y>
       <width>101</width>
       <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="text">
@@ -78,30 +78,30 @@
    <widget class="QLineEdit" name="userEdit">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>80</y>
+      <x>150</x>
+      <y>20</y>
       <width>391</width>
       <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
    </widget>
    <widget class="QLabel" name="password">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>160</y>
+      <x>30</x>
+      <y>100</y>
       <width>101</width>
       <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="text">
@@ -111,15 +111,15 @@
    <widget class="QLineEdit" name="pwEdit">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>160</y>
+      <x>150</x>
+      <y>100</y>
       <width>391</width>
       <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>14</pointsize>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="echoMode">
@@ -129,11 +129,16 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>220</y>
-      <width>461</width>
+      <x>80</x>
+      <y>160</y>
+      <width>411</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
     </property>
     <property name="title">
      <string/>
@@ -141,15 +146,15 @@
     <widget class="QRadioButton" name="rbtn1">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>90</x>
        <y>20</y>
-       <width>81</width>
+       <width>111</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -162,15 +167,15 @@
     <widget class="QRadioButton" name="rbtn2">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>240</x>
        <y>20</y>
-       <width>91</width>
+       <width>121</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="text">
@@ -184,8 +189,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>19</height>
+     <width>590</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

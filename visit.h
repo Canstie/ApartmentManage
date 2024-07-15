@@ -2,29 +2,32 @@
 #define VISIT_H
 
 #include <QMainWindow>
-#include <QCompleter>
-#include <QStringListModel>
 #include <QVBoxLayout>
-#include <QHeaderView>
+#include <QLineEdit>
+#include <QTableWidget>
+#include <QCompleter>
+#include <QPushButton>
+#include <QMessageBox>
+#include <QList>
+#include <QStringListModel>
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
-#include <QMessageBox>
 
 namespace Ui {
 class visit;
 }
 
     // 定义一个类来存储房屋信息
-    class House {
+class House {
 public:
-    House(int price, const QString &location, const QString &type,const QString &name)
-        : price(price), location(location), type(type) ,name(name){}
+    House(int price, const QString &location, const QString &type, const QString &name)
+        : price(price), location(location), type(type), name(name) {}
 
     int getPrice() const { return price; }
     QString getLocation() const { return location; }
     QString getType() const { return type; }
-    QString getname() const {return name;}
+    QString getName() const { return name; }
 
 private:
     int price;
@@ -32,6 +35,8 @@ private:
     QString type;
     QString name;
 };
+
+QList<House> readHouseData(const QString &fileName);
 
 class visit : public QMainWindow
 {
@@ -41,8 +46,18 @@ public:
     explicit visit(QWidget *parent = nullptr);
     ~visit();
 
+
+private slots:
+    void filterHouses(const QString &text);
+    void rentHouse();
+
 private:
     Ui::visit *ui;
+    QLineEdit *lineEdit;
+    QTableWidget *tableWidget;
+    QCompleter *completer;
+    QPushButton *rentButton;
+    QList<House> houseList;
 };
 
 #endif // VISIT_H
