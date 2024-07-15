@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>591</width>
+    <height>367</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,50 +18,10 @@
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>361</width>
-     <height>261</height>
+     <width>551</width>
+     <height>331</height>
     </rect>
    </property>
-   <column>
-    <property name="text">
-     <string>价格</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>地区</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>户型</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>公寓</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
-   </column>
   </widget>
  </widget>
  <resources/>

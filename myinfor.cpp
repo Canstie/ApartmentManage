@@ -8,23 +8,24 @@ myinfor::myinfor(QWidget *parent)
 {
     ui->setupUi(this);
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableWidget->setColumnCount(6); // 设置列数
+    ui->tableWidget->setHorizontalHeaderLabels(QStringList() << "位置" << "价格" << "租赁状态" << "起始日期" << "租赁总时长" << "结束日期");
     QFile file("2.txt");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return;
-    }
-    QTextStream in(&file);
-    int row = 0;
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        QStringList fields = line.split(" ");
-        if (fields.size() == 4) {
-            ui->tableWidget->insertRow(row);
-            ui->tableWidget->setItem(row, 0, new QTableWidgetItem(fields[0]));
-            ui->tableWidget->setItem(row, 1, new QTableWidgetItem(fields[1]));
-            ui->tableWidget->setItem(row, 2, new QTableWidgetItem(fields[2]));
-            ui->tableWidget->setItem(row, 3, new QTableWidgetItem(fields[3]));
-            row++;
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+        int row = 0;
+        while (!in.atEnd()) {
+            QString line = in.readLine().trimmed();
+            QStringList fields = line.split("\t");
+            if (fields.size() == 6) {
+                ui->tableWidget->insertRow(row);
+                for (int col = 0; col < fields.size(); ++col) {
+                    ui->tableWidget->setItem(row, col, new QTableWidgetItem(fields.at(col)));
+                }
+                ++row;
+            }
         }
+        file.close();
     }
 }
 
