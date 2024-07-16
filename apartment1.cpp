@@ -136,6 +136,12 @@ void apartment1::on_apar_del_triggered()
         QMessageBox::information(NULL, "删除结果", "删除失败-不存在此公寓", QMessageBox::Ok, QMessageBox::Ok);
     delete p;
     display_apartment_info();
+    QString fileName = "1.txt";
+    if (fileName.length() == 0) return;
+    QByteArray bytearray1 = fileName.toUtf8();
+    const char *temp1 = bytearray1.constData();
+    Apartment.save(temp1);
+    display_apartment_info();
 }
 
 void apartment1::on_apar_add_triggered()
