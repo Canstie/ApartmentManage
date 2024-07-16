@@ -36,10 +36,8 @@ void userui::on_pushButton_clicked()
     a->show();
 }
 
-
 void userui::on_pushButton_2_clicked()
 {
     myinfor *a = new myinfor;
     a->show();
 }
-

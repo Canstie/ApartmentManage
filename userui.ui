@@ -18,16 +18,45 @@
   <property name="windowTitle">
    <string>租户界面</string>
   </property>
-  <widget class="QWidget" name="">
+  <property name="styleSheet">
+   <string notr="true">
+    QWidget {
+        background-color: #f0f0f0;
+    }
+    QPushButton {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+    }
+    QPushButton:hover {
+        background-color: #45a049;
+    }
+   </string>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>133</x>
      <y>60</y>
      <width>381</width>
      <height>331</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>20</number>
+    </property>
+    <property name="padding">
+     <number>20</number>
+    </property>
     <item>
      <widget class="QPushButton" name="pushButton">
       <property name="text">

@@ -3,9 +3,7 @@
 #include "apartment1.h"
 #include "information.h"
 #include "leasemanagement.h"
-#include "visit.h"
-
-
+#include "visit2.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -29,18 +27,15 @@ void MainWindow::recievedata1(const QString &data){
     adad = data;
 }
 
-
 void MainWindow::on_pushButton_5_clicked()
 {
     openInformation();
 }
 
-
 void MainWindow::openInformation() {
     information *info = new information(adad, true);
     info->show();
 }
-
 
 void MainWindow::on_pushButton_4_clicked()
 {
@@ -48,11 +43,8 @@ void MainWindow::on_pushButton_4_clicked()
     a->show();
 }
 
-
 void MainWindow::on_pushButton_2_clicked()
 {
-    visit *a =new visit;
+    visit2 *a =new visit2;
     a->show();
 }
-
-

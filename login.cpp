@@ -1,13 +1,18 @@
 #include "login.h"
 #include "ui_login.h"
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
 
 Login::Login(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::Login), mw(new MainWindow), us(new userui)
 {
     ui->setupUi(this);
-    connect(this,&Login::senddata1,mw,&MainWindow::recievedata1);
-    connect(this,&Login::senddata2,us,&userui::recievedata2);
+    connect(this, &Login::senddata1, mw, &MainWindow::recievedata1);
+    connect(this, &Login::senddata2, us, &userui::recievedata2);
 
+    // 设置窗口图标
+    //setWindowIcon(QIcon(":/icons/login_icon.png"));
 }
 
 Login::~Login()
@@ -38,16 +43,14 @@ void Login::on_loginbtn_clicked()
     QString account = ui->userEdit->text();
     QString password = ui->pwEdit->text();
     if (checkCredentials(account, password)) {
-        if(ui->rbtn2->isChecked()==true){
+        if(ui->rbtn2->isChecked()) {
             emit senddata1(account);
             mw->show();
-            // this->close();
-        }
-        else{
+            this->close();
+        } else {
             emit senddata2(account);
             us->show();
-            //this->close();
-            //emit loginSuccess(account, ui->rbtn2->isChecked());  // 传递账号信息和用户类型
+            this->close();
         }
     } else {
         QMessageBox::warning(this, "警告", "账户或密码错误");

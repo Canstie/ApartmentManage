@@ -1,5 +1,5 @@
-#include "visit.h"
-#include "ui_visit.h"
+#include "visit2.h"
+#include "ui_visit2.h"
 #include <QHeaderView>
 #include <QMessageBox>
 #include <QFile>
@@ -8,9 +8,27 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
-visit::visit(QWidget *parent)
+QList<House> readHouseData1(const QString &fileName) {
+    QList<House> houseList;
+    QFile file(fileName);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine().trimmed();
+            QStringList fields = line.split(" ");
+            if (fields.size() == 4) {
+                House house(fields.at(0).toInt(), fields.at(1), fields.at(2), fields.at(3));
+                houseList.append(house);
+            }
+        }
+        file.close();
+    }
+    return houseList;
+}
+
+visit2::visit2(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::visit)
+    , ui(new Ui::visit2)
 {
     ui->setupUi(this);
 
@@ -49,7 +67,7 @@ visit::visit(QWidget *parent)
                                "}");
 
     // 从txt文件读取房屋列表作为数据源
-    houseList = readHouseData("1.txt");
+    houseList = readHouseData1("1.txt");
 
     // 显示所有房屋信息到QTableWidget
     tableWidget->setRowCount(houseList.size());
@@ -74,54 +92,18 @@ visit::visit(QWidget *parent)
     lineEdit->setCompleter(completer);
 
     // 连接QLineEdit的textChanged信号到槽函数，实现搜索逻辑
-    connect(lineEdit, &QLineEdit::textChanged, this, &visit::filterHouses);
+    connect(lineEdit, &QLineEdit::textChanged, this, &visit2::filterHouses);
 
-    // 创建QDateEdit用于选择租赁起始日期
-    startDateEdit = new QDateEdit(QDate::currentDate(), centralWidget);
-    startDateEdit->setCalendarPopup(true);
-    startDateEdit->setStyleSheet("QDateEdit {"
-                                 "    padding: 5px;"
-                                 "    font-size: 14px;"
-                                 "}");
-
-    // 创建QSpinBox用于选择租赁总时长
-    durationSpinBox = new QSpinBox(centralWidget);
-    durationSpinBox->setRange(1, 6000);
-    durationSpinBox->setSuffix(" 月");
-    durationSpinBox->setStyleSheet("QSpinBox {"
-                                   "    padding: 5px;"
-                                   "    font-size: 14px;"
-                                   "}");
-
-    // 创建QPushButton用于租赁房屋
-    rentButton = new QPushButton("租赁", centralWidget);
-    rentButton->setStyleSheet("QPushButton {"
-                              "    background-color: #3498db;"
-                              "    color: white;"
-                              "    border: none;"
-                              "    padding: 10px;"
-                              "    font-size: 14px;"
-                              "    border-radius: 5px;"
-                              "}"
-                              "QPushButton:hover {"
-                              "    background-color: #2980b9;"
-                              "}");
-
-    // 连接QPushButton的clicked信号到槽函数，实现租赁功能
-    connect(rentButton, &QPushButton::clicked, this, &visit::rentHouse);
 
     // 添加控件到布局
     layout->addWidget(lineEdit);
-    layout->addWidget(startDateEdit);
-    layout->addWidget(durationSpinBox);
     layout->addWidget(tableWidget);
-    layout->addWidget(rentButton);
 
     centralWidget->setLayout(layout);
     setCentralWidget(centralWidget);
 }
 
-void visit::filterHouses(const QString &text) {
+void visit2::filterHouses(const QString &text) {
     // 过滤数据源中的项目
     QList<House> filteredList;
     for (const House &house : houseList) {
@@ -154,7 +136,7 @@ void visit::filterHouses(const QString &text) {
     }
 }
 
-void visit::rentHouse() {
+void visit2::rentHouse() {
     // 获取当前选中的行
     QList<QTableWidgetItem *> selectedItems = tableWidget->selectedItems();
     if (!selectedItems.isEmpty()) {
@@ -182,25 +164,10 @@ void visit::rentHouse() {
     }
 }
 
-QList<House> readHouseData(const QString &fileName) {
-    QList<House> houseList;
-    QFile file(fileName);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream in(&file);
-        while (!in.atEnd()) {
-            QString line = in.readLine().trimmed();
-            QStringList fields = line.split(" ");
-            if (fields.size() == 4) {
-                House house(fields.at(0).toInt(), fields.at(1), fields.at(2), fields.at(3));
-                houseList.append(house);
-            }
-        }
-        file.close();
-    }
-    return houseList;
-}
 
-visit::~visit()
+
+
+visit2::~visit2()
 {
     delete ui;
 }

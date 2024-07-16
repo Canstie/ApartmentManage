@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>290</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>公寓管理</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayoutMain">
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
@@ -39,6 +39,13 @@
           <property name="sortingEnabled">
            <bool>true</bool>
           </property>
+          <property name="styleSheet">
+           <string notr="true">
+             QHeaderView::section {background-color:lightgray; padding: 4px; border: 1px solid gray;}
+             QTableWidget {border: 1px solid gray; font: 12pt;}
+             QTableWidget::item {padding: 5px;}
+           </string>
+          </property>
           <attribute name="horizontalHeaderMinimumSectionSize">
            <number>25</number>
           </attribute>
@@ -47,7 +54,17 @@
           </attribute>
           <column>
            <property name="text">
-            <string>租金    地区    户型</string>
+            <string>租金</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>地区</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>户型</string>
            </property>
           </column>
           <column>
@@ -68,7 +85,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>800</width>
      <height>21</height>
     </rect>
    </property>
@@ -77,7 +94,6 @@
      <string>公寓管理</string>
     </property>
     <addaction name="apar_read"/>
-    <addaction name="apar_save"/>
     <addaction name="separator"/>
     <addaction name="apar_del"/>
     <addaction name="apar_add"/>
@@ -94,7 +110,7 @@
     <string>读取文件</string>
    </property>
    <property name="shortcut">
-    <string>O</string>
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="apar_save">
@@ -105,7 +121,7 @@
     <string>保存到文件中</string>
    </property>
    <property name="shortcut">
-    <string>S</string>
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="apar_del">
@@ -113,10 +129,10 @@
     <string>删除信息</string>
    </property>
    <property name="toolTip">
-    <string>手动删除学生信息</string>
+    <string>删除公寓信息</string>
    </property>
    <property name="shortcut">
-    <string>D</string>
+    <string>Ctrl+D</string>
    </property>
   </action>
   <action name="apar_add">
@@ -124,10 +140,10 @@
     <string>添加信息</string>
    </property>
    <property name="toolTip">
-    <string>手动添加学生信息</string>
+    <string>添加公寓信息</string>
    </property>
    <property name="shortcut">
-    <string>A</string>
+    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="apar_chg">
@@ -135,10 +151,10 @@
     <string>修改信息</string>
    </property>
    <property name="toolTip">
-    <string>修改学生信息</string>
+    <string>修改公寓信息</string>
    </property>
    <property name="shortcut">
-    <string>M</string>
+    <string>Ctrl+M</string>
    </property>
   </action>
  </widget>

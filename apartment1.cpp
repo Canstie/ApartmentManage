@@ -109,17 +109,6 @@ void apartment1::on_apar_read_triggered()
     display_apartment_info();
 }
 
-void apartment1::on_apar_save_triggered()
-{
-    QString fileName = "1.txt";
-    if (fileName.length() == 0) return;
-    QByteArray bytearray = fileName.toUtf8();
-    const char *temp = bytearray.constData();
-    Apartment.save(temp);
-    QMessageBox::information(NULL, "保存完成", "保存完成", QMessageBox::Ok, QMessageBox::Ok);
-    display_apartment_info();
-}
-
 void apartment1::on_apar_del_triggered()
 {
     QList<QTableWidgetItem*> items = ui->tableWidget->selectedItems();
@@ -173,6 +162,12 @@ void apartment1::on_apar_add_triggered()
         QMessageBox::information(NULL, "添加结果", "添加失败-公寓重复", QMessageBox::Ok, QMessageBox::Ok);
 
     display_apartment_info();
+    QString fileName = "1.txt";
+    if (fileName.length() == 0) return;
+    QByteArray bytearray = fileName.toUtf8();
+    const char *temp = bytearray.constData();
+    Apartment.save(temp);
+    display_apartment_info();
 }
 
 void apartment1::on_apar_chg_triggered()
@@ -207,5 +202,11 @@ void apartment1::on_apar_chg_triggered()
         QMessageBox::information(NULL, "修改结果", "修改失败-公寓不存在", QMessageBox::Ok, QMessageBox::Ok);
 
     delete p;
+    display_apartment_info();
+    QString fileName = "1.txt";
+    if (fileName.length() == 0) return;
+    QByteArray bytearray = fileName.toUtf8();
+    const char *temp = bytearray.constData();
+    Apartment.save(temp);
     display_apartment_info();
 }

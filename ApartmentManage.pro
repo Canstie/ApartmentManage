@@ -21,7 +21,8 @@ SOURCES += \
     mainwindow.cpp \
     myinfor.cpp \
     userui.cpp \
-    visit.cpp
+    visit.cpp \
+    visit2.cpp
 
 HEADERS += \
     ModifyLeaseDialog.h \
@@ -33,7 +34,8 @@ HEADERS += \
     mainwindow.h \
     myinfor.h \
     userui.h \
-    visit.h
+    visit.h \
+    visit2.h
 
 FORMS += \
     apartment1.ui \
@@ -43,7 +45,8 @@ FORMS += \
     mainwindow.ui \
     myinfor.ui \
     userui.ui \
-    visit.ui
+    visit.ui \
+    visit2.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -19,7 +19,6 @@ public:
 
 private slots:
     void on_apar_add_triggered();
-    void on_apar_save_triggered();
     void on_apar_del_triggered();
     void on_apar_chg_triggered();
     void on_apar_read_triggered();

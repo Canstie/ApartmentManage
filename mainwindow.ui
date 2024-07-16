@@ -18,6 +18,31 @@
   <property name="windowTitle">
    <string>房主界面</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">
+    QMainWindow {
+        background-color: #f0f0f0;
+    }
+    QPushButton {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 24px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 14px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+    QPushButton:hover {
+        background-color: #45a049;
+    }
+    QStatusBar {
+        background-color: #e0e0e0;
+    }
+   </string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
@@ -34,6 +59,12 @@
      </font>
     </property>
     <layout class="QGridLayout" name="gridLayout">
+     <property name="spacing">
+      <number>20</number>
+     </property>
+     <property name="margin">
+      <number>20</number>
+     </property>
      <item row="1" column="0">
       <widget class="QPushButton" name="pushButton_2">
        <property name="font">
