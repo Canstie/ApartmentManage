@@ -141,9 +141,19 @@ void LeaseManagement::modifyLease() {
         }
 
         ModifyLeaseDialog dialog(this);
+        dialog.setWindowTitle("修改租赁记录");
         dialog.setLeaseData(currentData);
         if (dialog.exec() == QDialog::Accepted) {
             QStringList newData = dialog.getLeaseData();
+
+            // 获取起始日期和租赁总时长
+            QDate startDate = QDate::fromString(newData.at(3), "yyyy-MM-dd");
+            int duration = newData.at(4).toInt();
+            QDate endDate = startDate.addMonths(duration);
+
+            // 更新结束日期
+            newData[5] = endDate.toString("yyyy-MM-dd");
+
             for (int col = 0; col < newData.size(); ++col) {
                 tableWidget->setItem(currentRow, col, new QTableWidgetItem(newData.at(col)));
             }

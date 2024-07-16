@@ -7,6 +7,7 @@ myinfor::myinfor(QWidget *parent)
     , ui(new Ui::myinfor)
 {
     ui->setupUi(this);
+    this->setWindowTitle("我的租赁");
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableWidget->setColumnCount(6); // 设置列数
     ui->tableWidget->setHorizontalHeaderLabels(QStringList() << "位置" << "价格" << "租赁状态" << "起始日期" << "租赁总时长" << "结束日期");

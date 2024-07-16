@@ -7,12 +7,14 @@
 #include <QStringListModel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QLabel>
 
 visit::visit(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::visit)
 {
     ui->setupUi(this);
+    this->setWindowTitle("租赁公寓");
 
     // 创建主窗口布局
     QWidget *centralWidget = new QWidget(this);
@@ -76,15 +78,27 @@ visit::visit(QWidget *parent)
     // 连接QLineEdit的textChanged信号到槽函数，实现搜索逻辑
     connect(lineEdit, &QLineEdit::textChanged, this, &visit::filterHouses);
 
-    // 创建QDateEdit用于选择租赁起始日期
+    // 创建租赁起始日期标签和控件的水平布局
+    QHBoxLayout *startDateLayout = new QHBoxLayout();
+    QLabel *startDateLabel = new QLabel("租赁起始日期：", centralWidget);
+    startDateLabel->setStyleSheet("QLabel {"
+                                  "    font-size: 14px;"
+                                  "}");
     startDateEdit = new QDateEdit(QDate::currentDate(), centralWidget);
     startDateEdit->setCalendarPopup(true);
     startDateEdit->setStyleSheet("QDateEdit {"
                                  "    padding: 5px;"
                                  "    font-size: 14px;"
                                  "}");
+    startDateLayout->addWidget(startDateLabel);
+    startDateLayout->addWidget(startDateEdit);
 
-    // 创建QSpinBox用于选择租赁总时长
+    // 创建租赁总时长标签和控件的水平布局
+    QHBoxLayout *durationLayout = new QHBoxLayout();
+    QLabel *durationLabel = new QLabel("租赁总时长：", centralWidget);
+    durationLabel->setStyleSheet("QLabel {"
+                                 "    font-size: 14px;"
+                                 "}");
     durationSpinBox = new QSpinBox(centralWidget);
     durationSpinBox->setRange(1, 6000);
     durationSpinBox->setSuffix(" 月");
@@ -92,6 +106,8 @@ visit::visit(QWidget *parent)
                                    "    padding: 5px;"
                                    "    font-size: 14px;"
                                    "}");
+    durationLayout->addWidget(durationLabel);
+    durationLayout->addWidget(durationSpinBox);
 
     // 创建QPushButton用于租赁房屋
     rentButton = new QPushButton("租赁", centralWidget);
@@ -112,8 +128,8 @@ visit::visit(QWidget *parent)
 
     // 添加控件到布局
     layout->addWidget(lineEdit);
-    layout->addWidget(startDateEdit);
-    layout->addWidget(durationSpinBox);
+    layout->addLayout(startDateLayout);  // 添加水平布局
+    layout->addLayout(durationLayout);  // 添加水平布局
     layout->addWidget(tableWidget);
     layout->addWidget(rentButton);
 

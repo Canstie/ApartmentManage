@@ -31,6 +31,7 @@ visit2::visit2(QWidget *parent)
     , ui(new Ui::visit2)
 {
     ui->setupUi(this);
+    this->setWindowTitle("浏览公寓");
 
     // 创建主窗口布局
     QWidget *centralWidget = new QWidget(this);
